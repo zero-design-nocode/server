@@ -1,0 +1,80 @@
+{
+    "name": "zero-design-server",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "start": "node bin/www",
+        "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon bin/www",
+        "prd-dev": "cross-env NODE_ENV=prd_dev pm2 start bin/pm2-prd-dev.config.js",
+        "prd": "pm2 start bin/www",
+        "test:local": "cross-env NODE_ENV=test_local jest --runInBand  --passWithNoTests --colors --forceExit",
+        "test:remote": "cross-env NODE_ENV=test_remote jest --runInBand  --passWithNoTests --colors --forceExit",
+        "lint": "eslint \"src/**/*.{js,ts}\"",
+        "lint-fix": "eslint --fix \"src/**/*.{js,ts}\""
+    },
+    "dependencies": {
+        "ajv": "^8.12.0",
+        "ali-oss": "^6.19.0",
+        "axios": "^0.21.0",
+        "baidu-aip-sdk": "^4.16.15",
+        "cross-env": "^7.0.3",
+        "debug": "^4.3.4",
+        "formidable": "^1.2.2",
+        "jsonwebtoken": "^9.0.2",
+        "koa": "^2.15.0",
+        "koa-bodyparser": "^4.4.1",
+        "koa-convert": "^2.0.0",
+        "koa-json": "^2.0.2",
+        "koa-jwt": "^4.0.4",
+        "koa-logger": "^3.2.1",
+        "koa-onerror": "^4.2.0",
+        "koa-router": "^12.0.1",
+        "koa-static": "^5.0.0",
+        "koa-views": "^6.2.0",
+        "koa2-cors": "^2.0.6",
+        "lodash": "^4.17.21",
+        "mongoose": "5.11.3",
+        "mysql2": "^3.7.0",
+        "pug": "^3.0.2",
+        "redis": "^3.0.2",
+        "require-all": "^3.0.0",
+        "sequelize": "^6.35.2",
+        "simple-git": "^3.22.0",
+        "supertest": "^6.0.1",
+        "tencentcloud-sdk-nodejs": "^3.0.263",
+        "uuid": "^9.0.1"
+    },
+    "devDependencies": {
+        "commitlint": "^18.4.4",
+        "commitlint-config-cz": "^0.13.3",
+        "cz-customizable": "^7.0.0",
+        "eslint": "^8.56.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-prettier": "^5.1.3",
+        "husky": "^8.0.3",
+        "jest": "^26.6.3",
+        "lint-staged": "^15.2.0",
+        "nodemon": "^3.0.3",
+        "pm2": "^5.3.0",
+        "prettier": "^3.2.3"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "lint-staged": {
+        "*.js": [
+            "npm run lint",
+            "npm run test:local"
+        ]
+    },
+    "config": {
+        "commitizen": {
+            "path": "node_modules/cz-customizable"
+        }
+    }
+}
